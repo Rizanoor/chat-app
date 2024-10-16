@@ -23,6 +23,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/messages/{user}', [ChatController::class, 'index']);
     Route::post('/messages/{user}', [ChatController::class, 'sendMessage']);
+    Route::post('/messages/read/{message}', [ChatController::class, 'markAsRead']);
 });
 
 require __DIR__.'/auth.php';

@@ -12,9 +12,16 @@ class Message extends Model
     protected $fillable = [
         'sender_id',
         'receiver_id',
-        'text'
+        'text',
+        'is_delivered', 
+        'is_read'
     ];
 
+    protected $casts = [
+        'is_delivered' => 'boolean',
+        'is_read' => 'boolean'
+    ];
+    
     public function sender()
     {
         return $this->belongsTo(User::class, 'sender_id');
