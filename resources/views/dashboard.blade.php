@@ -18,14 +18,18 @@
                             <!-- User Avatar -->
                             <img src=" https://ui-avatars.com/api/?name={{ $user->name }}&background=random&color=fff"
                                 alt="{{ $user->name }}" class="w-8 h-8 rounded-full mr-3">
-                            <h3 class="text-lg font-semibold">{{ $user->name }}</h3>
-                        </div>
+                            <h3 class="text-lg font-semibold">
+                                {{ $user->name }}
+                                @if ($user->unreadCount > 0)
+                                    <span
+                                        class=" bg-red-500 text-white text-xs rounded-full px-2">
+                                        {{ $user->unreadCount }}
+                                    </span>
+                                @endif
 
-                        @if ($user->unreadCount > 0)
-                            <span class="absolute top-2 right-2 bg-red-500 text-white text-xs rounded-full px-2">
-                                {{ $user->unreadCount }}
-                            </span>
-                        @endif
+                            </h3>
+
+                        </div>
 
                         @if ($user->lastMessage)
                             <p class="text-gray-600 relative group mt-2">

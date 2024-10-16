@@ -28,6 +28,10 @@ class DashboardController extends Controller
                 ->count();
         }
 
+        $users = $users->sortByDesc(function ($user) {
+            return optional($user->lastMessage)->created_at;
+        });
+
         return view('dashboard', compact('users'));
     }
 }

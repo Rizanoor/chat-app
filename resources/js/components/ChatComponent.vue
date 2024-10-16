@@ -1,10 +1,14 @@
 <template>
     <div class="flex flex-col h-[700px]">
-        <div class="flex items-center">
-            <img :src="'https://ui-avatars.com/api/?name=' + user.name + '&background=random&color=fff'"
+        <div class="flex items-center mb-4">
+            <a href="/dashboard" 
+            class="mr-3 text-gray-800 px-3 py-1 rounded-full hover:bg-gray-300 transition duration-300">
+                ◀️
+            </a>
+            <img :src="'https://ui-avatars.com/api/?name=' + user.name + '&background=random&color=fff'" 
                 alt="avatar" class="w-8 h-8 rounded-full mr-3">
             <h1 class="text-lg font-semibold mr-2">{{ user.name }}</h1>
-            <span :class="isUserOnline ? 'bg-green-500' : 'bg-gray-400'"
+            <span :class="isUserOnline ? 'bg-green-500' : 'bg-gray-400'" 
                 class="inline-block h-2 w-2 rounded-full"></span>
         </div>
 
