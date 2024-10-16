@@ -4,17 +4,23 @@
             <h1 class="text-lg font-semibold mr-2">{{ user.name }}</h1>
             <span :class="isUserOnline ? 'bg-green-500' : 'bg-gray-400'"
                 class="inline-block h-2 w-2 rounded-full"></span>
-
         </div>
 
         <!-- Messages -->
         <div ref="messageContainer" class="overflow-y-auto p-4 mt-3 flex-grow border-t border-gray-200">
             <div class="space-y-4">
                 <div v-for="message in messages" :key="message.id"
-                    :class="{ 'text-right': message.sender_id === currentUser.id }" class="mb-4">
+                    :class="{ 'text-right': message.sender_id === currentUser.id }" class="mb-4"
+                    @click="setReplyToMessage(message)">
+
+                    <!-- Display reply if available -->
+                    <div v-if="message.reply_to && message.repliedTo" class="ml-4 mb-1 bg-gray-100 p-2 rounded-md shadow-sm">
+                        <p class="text-sm text-gray-600"><strong>Balasan dari {{ message.repliedTo.sender.name }}:</strong> {{ message.repliedTo.text }}</p>
+                    </div>
+
                     <div :class="message.sender_id === currentUser.id ? 'bg-indigo-500 text-white' : 'bg-gray-200 text-gray-800'"
-                        class="inline-block px-5 py-2 rounded-lg">
-                        <p>{{ message.text }}</p>
+                        class="inline-block px-5 py-2 rounded-lg transition-all duration-300 shadow-md hover:shadow-lg max-w-[350px]">
+                        <p v-html="formatMessage(message.text)"></p>
                         <div class="flex items-center space-x-2 text-[10px] mt-1">
                             <!-- Display message status for the sender -->
                             <div v-if="message.sender_id === currentUser.id" class="flex items-center space-x-1">
@@ -22,7 +28,7 @@
                                 <span v-else-if="message.is_delivered" class="text-yellow-500">Delivered</span>
                                 <span v-else class="text-red-400">Sending...</span>
                             </div>
-                            
+
                             <!-- Display message timestamp -->
                             <span>{{ formatTime(message.created_at) }}</span>
                         </div>
@@ -35,21 +41,24 @@
         <div class="border-t pt-4">
             <form @submit.prevent="sendMessage">
                 <div class="flex items-center">
-                    <input v-model="newMessage" @keydown="sendTypingEvent" type="text"
-                        class="flex-1 border p-3 rounded-lg" placeholder="Type your message here..." />
+                    <textarea v-model="newMessage" @keydown="sendTypingEvent"
+                        class="flex-1 border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" 
+                        placeholder="Ketik pesan Anda di sini..." rows="1" autofocus></textarea>
                     <button type="submit"
                         class="ml-2 bg-indigo-500 text-white p-3 rounded-lg shadow hover:bg-indigo-600 transition duration-300 flex items-center justify-center">
-                        Send
+                        Kirim
                     </button>
                 </div>
+                <small v-if="replyToMessageId" class="mt-2 text-gray-600">
+                    Balas ke: <strong>{{ messages.find(m => m.id === replyToMessageId).text }}</strong>
+                </small>
             </form>
         </div>
     </div>
     <small v-if="isUserTyping" class="text-gray-600 mt-5">
-        {{ user.name }} is typing...
+        {{ user.name }} sedang mengetik...
     </small>
 </template>
-
 
 <script setup>
 import { ref, onMounted, watch, nextTick } from 'vue';
@@ -68,7 +77,8 @@ const props = defineProps({
 
 const messages = ref([]);
 const newMessage = ref('');
-const messageContainer = ref(null)
+const replyToMessageId = ref(null);
+const messageContainer = ref(null);
 const isUserTyping = ref(false);
 const isUserTypingTimer = ref(null);
 const isUserOnline = ref(false);
@@ -86,12 +96,16 @@ watch(
     { deep: true }
 );
 
+const formatMessage = (text) => {
+    return text.replace(/\n/g, '<br>');
+};
+
 const fetchMessages = async () => {
     try {
         const response = await axios.get(`/messages/${props.user.id}`);
         messages.value = response.data;
 
-        // Tandai pesan terakhir sebagai dibaca
+        // Mark the last message as read
         if (messages.value.length > 0) {
             markMessagesAsRead(messages.value[messages.value.length - 1].id);
         }
@@ -113,11 +127,11 @@ const sendMessage = async () => {
         try {
             const response = await axios.post(`/messages/${props.user.id}`, {
                 message: newMessage.value,
+                reply_to: replyToMessageId.value // Include the reply_to in the request
             });
             messages.value.push(response.data);
             newMessage.value = '';
-
-            // Tandai pesan terbaru sebagai dibaca setelah mengirim
+            replyToMessageId.value = null; // Reset the reply after sending
             markMessagesAsRead(response.data.id);
         } catch (error) {
             console.error("Failed to send message:", error);
@@ -125,12 +139,20 @@ const sendMessage = async () => {
     }
 };
 
+// Function to set which message to reply to
+const setReplyToMessage = (message) => {
+    newMessage.value = `@${message.sender.name}\n${message.text}\n\n`; 
+    replyToMessageId.value = message.id;
+};
+
+
+
 const sendTypingEvent = () => {
     Echo.private(`chat.${props.user.id}`).whisper("typing", {
         userID: props.currentUser.id,
     });
 
-    // Tandai pesan terakhir sebagai dibaca saat mulai mengetik
+    // Mark the last message as read while typing
     if (messages.value.length > 0) {
         markMessagesAsRead(messages.value[messages.value.length - 1].id);
     }
@@ -184,3 +206,9 @@ onMounted(() => {
         });
 });
 </script>
+
+<style scoped>
+.hover\:shadow-lg:hover {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+</style>

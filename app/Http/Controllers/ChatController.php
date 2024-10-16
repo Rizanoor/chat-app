@@ -23,7 +23,7 @@ class ChatController extends Controller
                 $query->where('sender_id', $user->id)
                     ->where('receiver_id', Auth::user()->id);
             })
-            ->with(['sender', 'receiver'])
+            ->with(['sender', 'receiver', 'repliedTo'])
             ->orderBy('created_at', 'asc')
             ->get();
 
@@ -55,11 +55,15 @@ class ChatController extends Controller
 
     public function sendMessage(Request $request, User $user)
     {
+        $replyToId = $request->input('reply_to');
+
+
         $message = Message::create([
             'sender_id' => Auth::user()->id,
             'receiver_id' => $user->id,
             'text' => $request->input('message'),
-            'is_delivered' => true
+            'is_delivered' => true,
+            'reply_to' => $replyToId,
         ]);
 
         broadcast(new MessageSent($message));
