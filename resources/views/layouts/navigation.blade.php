@@ -6,7 +6,7 @@
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('dashboard') }}">
-                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
+                        <img src="{{ asset('img/bca.png') }}" class="rounded w-[100px]" alt="Image">
                     </a>
                 </div>
 
@@ -17,7 +17,8 @@
                     </x-nav-link>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
-                        <x-nav-link class="mt-[1.2rem]" :href="route('logout')" onclick="event.preventDefault();  this.closest('form').submit();">
+                        <x-nav-link class="mt-[1.2rem]" :href="route('logout')"
+                            onclick="event.preventDefault();  this.closest('form').submit();">
                             Logout
                         </x-nav-link>
                     </form>
