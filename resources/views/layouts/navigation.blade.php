@@ -5,10 +5,9 @@
             <div class="flex items-center">
                 <!-- Logo -->
                 <div class="shrink-0">
-                    <a href="{{ route('dashboard') }}">
-                        <img src="{{ asset('img/bca.png') }}"
-                            class="rounded w-24 hover:opacity-90 transition-opacity duration-300 ease-in-out"
-                            alt="Logo">
+                    <a href="{{ route('dashboard') }}"
+                        class="text-xl font-bold text-gray-600 hover:text-gray-800 transition duration-300">
+                        Citchat
                     </a>
                 </div>
             </div>
