@@ -1,6 +1,8 @@
 <template>
-    <div class="flex flex-col h-[500px]">
+    <div class="flex flex-col h-[700px]">
         <div class="flex items-center">
+            <img :src="'https://ui-avatars.com/api/?name=' + user.name + '&background=random&color=fff'"
+                alt="avatar" class="w-8 h-8 rounded-full mr-3">
             <h1 class="text-lg font-semibold mr-2">{{ user.name }}</h1>
             <span :class="isUserOnline ? 'bg-green-500' : 'bg-gray-400'"
                 class="inline-block h-2 w-2 rounded-full"></span>
@@ -14,8 +16,10 @@
                     @click="setReplyToMessage(message)">
 
                     <!-- Display reply if available -->
-                    <div v-if="message.reply_to && message.repliedTo" class="ml-4 mb-1 bg-gray-100 p-2 rounded-md shadow-sm">
-                        <p class="text-sm text-gray-600"><strong>Balasan dari {{ message.repliedTo.sender.name }}:</strong> {{ message.repliedTo.text }}</p>
+                    <div v-if="message.reply_to && message.repliedTo"
+                        class="ml-4 mb-1 bg-gray-100 p-2 rounded-md shadow-sm">
+                        <p class="text-sm text-gray-600"><strong>Balasan dari {{ message.repliedTo.sender.name
+                                }}:</strong> {{ message.repliedTo.text }}</p>
                     </div>
 
                     <div :class="message.sender_id === currentUser.id ? 'bg-indigo-500 text-white' : 'bg-gray-200 text-gray-800'"
@@ -42,7 +46,7 @@
             <form @submit.prevent="sendMessage">
                 <div class="flex items-center">
                     <textarea v-model="newMessage" @keydown="sendTypingEvent"
-                        class="flex-1 border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" 
+                        class="flex-1 border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
                         placeholder="Ketik pesan Anda di sini..." rows="1" autofocus></textarea>
                     <button type="submit"
                         class="ml-2 bg-indigo-500 text-white p-3 rounded-lg shadow hover:bg-indigo-600 transition duration-300 flex items-center justify-center">
@@ -141,11 +145,9 @@ const sendMessage = async () => {
 
 // Function to set which message to reply to
 const setReplyToMessage = (message) => {
-    newMessage.value = `@${message.sender.name}\n${message.text}\n\n`; 
+    newMessage.value = `@${message.sender.name}\n${message.text}\n\n`;
     replyToMessageId.value = message.id;
 };
-
-
 
 const sendTypingEvent = () => {
     Echo.private(`chat.${props.user.id}`).whisper("typing", {
