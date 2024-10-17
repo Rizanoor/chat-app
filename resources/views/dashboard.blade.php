@@ -38,8 +38,7 @@
             </div>
 
             <!-- Integrasi Komponen Dashboard Vue -->
-            <dashboard-component :users="{{ json_encode($users) }}"
-                :current-user="{{ auth()->user() }}"></dashboard-component>
+            <dashboard-component :users="{{ $users }}"></dashboard-component>
 
         </div>
     </div>

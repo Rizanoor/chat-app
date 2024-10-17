@@ -65,7 +65,7 @@
 import { ref, onMounted, onBeforeUnmount } from 'vue';
 
 const props = defineProps({
-    users: Array,
+    users: [Array, Object],
 });
 
 const isDropdownOpen = ref(false);
