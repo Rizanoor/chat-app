@@ -1,12 +1,14 @@
 <template>
     <div class="flex flex-col h-[700px]">
-        <div ref="contactContainer" class="overflow-y-auto p-4 flex-grow">
+        <div ref="contactContainer" class="overflow-y-auto flex-grow no-scrollbar">
             <div class="space-y-4">
                 <div class="flex">
-                    <a href="/dashboard" class="mr-3 text-gray-800 px-3 py-2 rounded-lg shadow-sm bg-gray-100 hover:bg-gray-300 transition duration-300">
+                    <a href="/dashboard"
+                        class="mr-3 text-gray-800 px-3 py-2 rounded-lg border hover:bg-gray-300 transition duration-300">
                         ◀️
                     </a>
-                    <button @click="showModal = true" class="bg-blue-500 text-white p-2 rounded-lg block text-sm hover:bg-blue-600 transition w-full">
+                    <button @click="showModal = true"
+                        class="bg-blue-500 text-white p-2 rounded-lg block text-sm hover:bg-blue-600 transition w-full">
                         + New Contact
                     </button>
                 </div>
@@ -40,11 +42,12 @@
                 </div>
 
                 <!-- Contact List -->
-                <div v-for="contact in user" :key="contact.id" class="bg-gray-100 p-4 rounded-lg transition hover:bg-gray-200">
+                <div v-for="contact in user" :key="contact.id"
+                    class="border-b p-4 rounded-lg transition hover:bg-gray-200">
                     <a :href="`/chat/${contact.id}`" class="block">
                         <div class="flex items-center">
                             <img :src="`https://ui-avatars.com/api/?name=${contact.name}&background=random&color=fff`"
-                                :alt="contact.name" class="w-8 h-8 rounded-full mr-3">
+                                :alt="contact.name" class="w-12 h-12 rounded-full mr-3">
                             <div>
                                 <h3 class="text-lg font-semibold">{{ contact.name }}</h3>
                                 <p class="text-sm text-gray-600">{{ contact.email }}</p>
@@ -108,3 +111,14 @@ const submitForm = async () => {
     }
 };
 </script>
+
+<style scoped>
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+.no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+</style>

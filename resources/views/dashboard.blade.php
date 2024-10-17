@@ -1,23 +1,24 @@
 <x-app-layout>
     <div class="bg-white overflow-hidden sm:rounded-lg mt-6">
         <div class="p-6 text-gray-900">
-            <div class="flex items-center justify-between mb-4">
-                <h2 class="text-xl font-bold text-gray-700">Chats</h2>
-                <div class="flex items-center relative">
-                    <!-- Avatar dan Nama -->
-                    <p class="text-md text-gray-600">
-                        <span class="font-normal text-gray-700"> Hi, {{ Auth::user()->name }}</span>
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-2xl font-bold text-gray-800">Chats</h2>
+                <div class="flex items-center">
+                    <p class="text-md text-gray-600 mr-4">
+                        <span class="font-normal text-gray-700">Hi, {{ Auth::user()->name }}</span>
                     </p>
                     <!-- Avatar Dropdown -->
-                    <details class="relative ml-3 z-10">
+                    <details class="relative">
                         <summary class="list-none cursor-pointer">
-                            <img src="{{ asset('img/avatar.jpg') }}" alt="Avatar" class="w-10 h-10 rounded-full">
+                            <img src="{{ asset('img/avatar.jpg') }}" alt="Avatar"
+                                class="w-10 h-10 rounded-full border border-gray-300">
                         </summary>
                         <!-- Dropdown -->
-                        <div class="absolute right-0 mt-2 w-48 bg-white rounded-lg border">
+                        <div
+                            class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 z-10">
                             <ul>
                                 <li>
-                                    <a href={{ route('profile.edit') }}
+                                    <a href="{{ route('profile.edit') }}"
                                         class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Profile</a>
                                 </li>
                                 <li>
@@ -36,62 +37,58 @@
                 </div>
             </div>
 
+            <!-- Search Input -->
+            <div class="mb-2 flex items-center space-x-3">
+                <input type="text" id="search" name="search" placeholder="Search contacts..."
+                    class="w-full border border-gray-200 bg-gray-50 rounded-lg py-2 px-4 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    v-model="searchTerm" @input="filterUsers">
+
+                <a href="{{ route('contact') }}"
+                    class="flex-shrink-0 bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-full transition">
+                    +
+                </a>
+            </div>
+
             <!-- Scrollable Chat List -->
-            <div class="h-[645px] overflow-y-auto">
+            <div class="h-[645px] overflow-y-auto rounded-lg">
                 <div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-4 mt-4">
                     @foreach ($users as $user)
                         <a href="{{ route('chat', $user->id) }}"
-                            class="bg-gray-100 p-4 rounded-lg block hover:bg-gray-200 relative">
-                            <div class="flex items-center">
-                                <!-- User Avatar -->
-                                <img src="https://ui-avatars.com/api/?name={{ $user->name }}&background=random&color=fff"
-                                    alt="{{ $user->name }}" class="w-8 h-8 rounded-full mr-3">
-                                <h3 class="text-lg font-semibold">
-                                    {{ $user->name }}
-                                    @if ($user->unreadCount > 0)
-                                        <span class="bg-red-500 text-white text-xs rounded-full px-2">
-                                            {{ $user->unreadCount }}
-                                        </span>
-                                    @endif
-                                </h3>
-                            </div>
-
-                            @if ($user->lastMessage)
-                                <p class="text-gray-600 relative group mt-2">
-                                    <span class="truncate max-w-[450px] inline-block"
-                                        title="{{ $user->lastMessage->text }}">
-                                        {{ $user->lastMessage->text }}
-                                        @if ($user->lastMessage->is_read)
-                                            <span
-                                                class="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">Read</span>
-                                        @else
-                                            <span
-                                                class="inline-flex items-center rounded-md bg-yellow-50 px-2 py-1 text-xs font-medium text-yellow-800 ring-1 ring-inset ring-yellow-600/20">Delivered</span>
-                                        @endif
-                                    </span>
-                                <div class="flex items-center mt-1">
-                                    <span
-                                        class="absolute left-0 z-10 hidden group-hover:block bg-white border border-gray-300 p-2 rounded-md shadow-md text-black">
-                                        {{ $user->lastMessage->text }}
-                                    </span>
-                                    <span
-                                        class="text-gray-400 text-sm">{{ \Carbon\Carbon::parse($user->lastMessage->created_at)->diffForHumans() }}</span>
+                            class="bg-white p-4 block hover:bg-gray-100 border-b transition relative">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center">
+                                    <img src="https://ui-avatars.com/api/?name={{ $user->name }}&background=random&color=fff"
+                                        alt="{{ $user->name }}"
+                                        class="w-12 h-12 rounded-full border border-gray-300 mr-3">
+                                    <div>
+                                        <h3 class="text-lg font-semibold text-gray-800">{{ $user->name }}</h3>
+                                        <p class="text-sm text-gray-600">
+                                            @if ($user->lastMessage->is_read)
+                                                <span
+                                                    class="inline-flex items-center rounded-md bg-green-50 px-2 text-[0.5rem] font-medium text-green-700 ring-1 ring-inset ring-green-600/20">R</span>
+                                            @else
+                                                <span
+                                                    class="inline-flex items-center rounded-md bg-yellow-50 px-2 text-[0.5rem] font-medium text-yellow-800 ring-1 ring-inset ring-yellow-600/20">D</span>
+                                            @endif
+                                            &nbsp;
+                                            {{ $user->lastMessage ? Str::limit($user->lastMessage->text, 50) : 'No messages yet' }}
+                                        </p>
+                                    </div>
                                 </div>
-                                </p>
-                            @else
-                                <p class="text-gray-600">No messages yet.</p>
-                            @endif
+                                @if ($user->unreadCount > 0)
+                                    <span class="bg-red-500 text-white text-xs rounded-full px-3 py-1">
+                                        {{ $user->unreadCount }}
+                                    </span>
+                                @endif
+                                <span class="text-gray-400 text-xs">
+                                    {{ \Carbon\Carbon::parse($user->lastMessage->created_at)->format('h:i A') }}
+                                </span>
+                            </div>
                         </a>
                     @endforeach
-                    <div class="fixed bottom-36 right-52 z-10">
-                        <a href="{{ route('contact') }}"
-                            class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-full border">
-                            +
-                        </a>
-                    </div>
                 </div>
-            </div>
 
+            </div>
         </div>
     </div>
 </x-app-layout>
