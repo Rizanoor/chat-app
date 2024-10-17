@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ChatController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -24,6 +25,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/messages/{user}', [ChatController::class, 'index']);
     Route::post('/messages/{user}', [ChatController::class, 'sendMessage']);
     Route::post('/messages/read/{message}', [ChatController::class, 'markAsRead']);
+
+    Route::get('/contact', [ContactController::class, 'index'])->name('contact');
+
 });
 
 require __DIR__.'/auth.php';
