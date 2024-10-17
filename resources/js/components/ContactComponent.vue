@@ -38,6 +38,7 @@
                         </form>
                     </div>
                 </div>
+
                 <!-- Contact List -->
                 <div v-for="contact in user" :key="contact.id" class="bg-gray-100 p-4 rounded-lg transition hover:bg-gray-200">
                     <a :href="`/chat/${contact.id}`" class="block">
@@ -53,11 +54,17 @@
                 </div>
             </div>
         </div>
+
+        <!-- Toast Notification -->
+        <div v-if="showToast" class="fixed bottom-4 right-4 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg">
+            {{ toastMessage }}
+        </div>
     </div>
 </template>
 
 <script setup>
 import { ref } from 'vue';
+import axios from 'axios';
 
 const props = defineProps({
     user: Array,
@@ -65,16 +72,39 @@ const props = defineProps({
 });
 
 const showModal = ref(false);
+const showToast = ref(false);
+const toastMessage = ref('');
 
 const contact = ref({
     name: '',
     email: ''
 });
 
-const submitForm = () => {
-    showModal.value = false;
-    contact.value.name = '';
-    contact.value.email = '';
+const showToastNotification = (message) => {
+    toastMessage.value = message;
+    showToast.value = true;
+
+    setTimeout(() => {
+        showToast.value = false;
+    }, 3000);
+};
+
+const submitForm = async () => {
+    try {
+        const response = await axios.post('/contacts', {
+            name: contact.value.name,
+            email: contact.value.email,
+        });
+
+        if (response.status === 201) {
+            showToastNotification('Contact created successfully!');
+            showModal.value = false;
+            contact.value.name = '';
+            contact.value.email = '';
+        }
+    } catch (error) {
+        console.error(error.response?.data?.errors || error.message);
+        showToastNotification('An error occurred while creating the contact.');
+    }
 };
 </script>
-

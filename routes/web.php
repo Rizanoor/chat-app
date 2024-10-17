@@ -27,7 +27,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/messages/read/{message}', [ChatController::class, 'markAsRead']);
 
     Route::get('/contact', [ContactController::class, 'index'])->name('contact');
-
+    Route::post('/contacts', [ContactController::class, 'store']);
 });
 
 require __DIR__.'/auth.php';

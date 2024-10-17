@@ -28,6 +28,6 @@ class ContactController extends Controller
 
         User::create($data);
 
+        return response()->json(['message' => 'Contact created successfully!'], 201);
     }
 }
-
