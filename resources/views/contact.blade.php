@@ -9,7 +9,7 @@
                         <span class="font-normal text-gray-700"> Hi, {{ Auth::user()->name }}</span>
                     </p>
                     <!-- Avatar Dropdown -->
-                    <details class="relative ml-3 z-10">
+                    <details class="relative ml-3 ">
                         <summary class="list-none cursor-pointer">
                             <img src="{{ asset('img/avatar.jpg') }}" alt="Avatar" class="w-10 h-10 rounded-full">
                         </summary>
@@ -38,36 +38,10 @@
 
             <!-- Scrollable Chat List -->
             <div class="h-[645px] overflow-y-auto">
-                <div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-4 mt-4">
-                    <a href="{{ route('contact') }}"
-                        class="bg-gray-100 p-4 rounded-lg block hover:bg-gray-200 relative">
-                        <div class="flex items-left">
-                            <p class="text-lg font-semibold">
-                               + Create Contact
-                            </p>
-                        </div>
-                    </a>
-                    @foreach ($users as $user)
-                        <a href="{{ route('chat', $user->id) }}"
-                            class="bg-gray-100 p-4 rounded-lg block hover:bg-gray-200 relative">
-                            <div class="flex items-center">
-                                <!-- User Avatar -->
-                                <img src="https://ui-avatars.com/api/?name={{ $user->name }}&background=random&color=fff"
-                                    alt="{{ $user->name }}" class="w-8 h-8 rounded-full mr-3">
-                                <h3 class="text-lg font-normal">
-                                    {{ $user->name }}
-                                </h3>
-                            </div>
-                        </a>
-                    @endforeach
-                    <div class="fixed bottom-36 right-52 z-10">
-                        <a href="{{route('dashboard')}}" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-full border">
-                            Back
-                        </a>
-                    </div>
+                <div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-4">
+                    <contact-component :user="{{ $user }}" :current-user="{{ auth()->user() }}"></contact-component>
                 </div>
             </div>
-
         </div>
     </div>
 </x-app-layout>

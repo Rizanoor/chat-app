@@ -7,31 +7,27 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+use function Laravel\Prompts\password;
+
 class ContactController extends Controller
 {
     public function index()
     {
-        $users = User::whereNot('id', Auth::user()->id)->get();
+        $user = User::where('id', '!=', Auth::user()->id)->get();
 
-        foreach ($users as $user) {
-            $user->lastMessage = Message::where(function ($query) use ($user) {
-                $query->where('sender_id', Auth::user()->id)
-                    ->where('receiver_id', $user->id);
-            })->orWhere(function ($query) use ($user) {
-                $query->where('sender_id', $user->id)
-                    ->where('receiver_id', Auth::user()->id);
-            })->latest()->first();
+        return view('contact', compact('user'));
+    }
 
-            $user->unreadCount = Message::where('receiver_id', Auth::user()->id)
-                ->where('sender_id', $user->id)
-                ->where('is_read', false)
-                ->count();
-        }
+    public function store(Request $request)
+    {
+        $data = [
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => bcrypt('password'),
+        ];
 
-        $users = $users->sortByDesc(function ($user) {
-            return optional($user->lastMessage)->created_at;
-        });
+        User::create($data);
 
-        return view('contact', compact('users'));
     }
 }
+
