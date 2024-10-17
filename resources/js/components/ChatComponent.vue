@@ -1,12 +1,12 @@
 <template>
-    <div class="flex flex-col h-[700px]">
-        <div class="flex items-center mb-4">
+    <div class="flex flex-col h-[800px]">
+        <div class="flex items-center">
             <a href="/dashboard" 
             class="mr-3 text-gray-800 px-3 py-1 rounded-full hover:bg-gray-300 transition duration-300">
                 ◀️
             </a>
             <img :src="'https://ui-avatars.com/api/?name=' + user.name + '&background=random&color=fff'" 
-                alt="avatar" class="w-8 h-8 rounded-full mr-3">
+                alt="avatar" class="w-12 h-12 rounded-full mr-3">
             <h1 class="text-lg font-semibold mr-2">{{ user.name }}</h1>
             <span :class="isUserOnline ? 'bg-green-500' : 'bg-gray-400'" 
                 class="inline-block h-2 w-2 rounded-full"></span>
@@ -26,18 +26,15 @@
                                 }}:</strong> {{ message.repliedTo.text }}</p>
                     </div>
 
-                    <div :class="message.sender_id === currentUser.id ? 'bg-indigo-500 text-white' : 'bg-gray-200 text-gray-800'"
-                        class="inline-block px-5 py-2 rounded-lg transition-all duration-300 shadow-md hover:shadow-lg max-w-[350px]">
+                    <div :class="message.sender_id === currentUser.id ? 'bg-green-500 text-white' : 'bg-gray-200 text-gray-800'"
+                        class="inline-block px-5 py-2 rounded-lg transition-all duration-300 hover:shadow-lg max-w-[350px]">
                         <p v-html="formatMessage(message.text)"></p>
                         <div class="flex items-center space-x-2 text-[10px] mt-1">
-                            <!-- Display message status for the sender -->
                             <div v-if="message.sender_id === currentUser.id" class="flex items-center space-x-1">
                                 <span v-if="message.is_read" class="text-green-500">Read</span>
                                 <span v-else-if="message.is_delivered" class="text-yellow-500">Delivered</span>
                                 <span v-else class="text-red-400">Sending...</span>
                             </div>
-
-                            <!-- Display message timestamp -->
                             <span>{{ formatTime(message.created_at) }}</span>
                         </div>
                     </div>
@@ -46,14 +43,14 @@
         </div>
 
         <!-- Message Input -->
-        <div class="border-t pt-4">
+        <div class="pt-4">
             <form @submit.prevent="sendMessage">
                 <div class="flex items-center">
                     <textarea v-model="newMessage" @keydown="sendTypingEvent"
-                        class="flex-1 border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                        class="flex-1 border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
                         placeholder="Ketik pesan Anda di sini..." rows="1" autofocus></textarea>
                     <button type="submit"
-                        class="ml-2 bg-indigo-500 text-white p-3 rounded-lg shadow hover:bg-indigo-600 transition duration-300 flex items-center justify-center">
+                        class="ml-2 bg-green-500 text-white p-3 rounded-lg shadow hover:bg-green-600 transition duration-300 flex items-center justify-center">
                         Kirim
                     </button>
                 </div>
