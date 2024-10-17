@@ -4,11 +4,11 @@
             <div class="space-y-4">
                 <div class="flex">
                     <a href="/dashboard"
-                        class="mr-3 text-gray-800 px-3 py-2 rounded-lg border hover:bg-gray-300 transition duration-300">
-                        ◀️
+                        class="mr-3 text-gray-800 px-3 py-2 rounded-full border hover:bg-gray-300 transition duration-300">
+                        <i class="fas fa-arrow-left"></i>
                     </a>
                     <button @click="showModal = true"
-                        class="bg-blue-500 text-white p-2 rounded-lg block text-sm hover:bg-blue-600 transition w-full">
+                        class="bg-green-500 text-white p-2 rounded-lg block text-sm hover:bg-green-600 transition w-full">
                         + New Contact
                     </button>
                 </div>

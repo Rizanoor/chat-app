@@ -44,8 +44,8 @@
                     v-model="searchTerm" @input="filterUsers">
 
                 <a href="{{ route('contact') }}"
-                    class="flex-shrink-0 bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-full transition">
-                    +
+                    class="flex-shrink-0 font-extrabold transition">
+                    <i class="fa-solid fa-ellipsis-vertical"></i>
                 </a>
             </div>
 

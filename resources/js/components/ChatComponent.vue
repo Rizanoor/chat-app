@@ -1,16 +1,29 @@
 <template>
     <div class="flex flex-col h-[800px]">
         <div class="flex items-center">
-            <a href="/dashboard" 
-            class="mr-3 text-gray-800 px-3 py-1 rounded-full hover:bg-gray-300 transition duration-300">
-                ◀️
+            <a href="/dashboard"
+                class="mr-3 text-gray-800 px-3 py-2 rounded-full hover:bg-gray-300 transition duration-300">
+                <i class="fas fa-arrow-left"></i>
             </a>
-            <img :src="'https://ui-avatars.com/api/?name=' + user.name + '&background=random&color=fff'" 
-                alt="avatar" class="w-12 h-12 rounded-full mr-3">
+            <img :src="'https://ui-avatars.com/api/?name=' + user.name + '&background=random&color=fff'" alt="avatar"
+                class="w-12 h-12 rounded-full mr-3">
+
             <h1 class="text-lg font-semibold mr-2">{{ user.name }}</h1>
-            <span :class="isUserOnline ? 'bg-green-500' : 'bg-gray-400'" 
+            <span :class="isUserOnline ? 'bg-green-500' : 'bg-gray-400'"
                 class="inline-block h-2 w-2 rounded-full"></span>
+
+            <div class="ml-auto flex items-center">
+                <a href="#"
+                    class="mr-3 text-gray-800 px-3 py-2 rounded-full hover:bg-gray-300 transition duration-300">
+                    <i class="fa-solid fa-phone"></i>
+                </a>
+                <a href="#"
+                    class="text-gray-800 px-3 py-2 rounded-full hover:bg-gray-300 transition duration-300">
+                    <i class="fa-solid fa-video"></i>
+                </a>
+            </div>
         </div>
+
 
         <!-- Messages -->
         <div ref="messageContainer" class="overflow-y-auto p-4 mt-3 flex-grow border-t border-gray-200">
@@ -50,8 +63,8 @@
                         class="flex-1 border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
                         placeholder="Ketik pesan Anda di sini..." rows="1" autofocus></textarea>
                     <button type="submit"
-                        class="ml-2 bg-green-500 text-white p-3 rounded-lg shadow hover:bg-green-600 transition duration-300 flex items-center justify-center">
-                        Kirim
+                        class="ml-2 bg-green-500 text-white p-4 rounded-lg shadow hover:bg-green-600 transition duration-300 flex items-center justify-center">
+                        <i class="fa-solid fa-paper-plane"></i>
                     </button>
                 </div>
                 <small v-if="replyToMessageId" class="mt-2 text-gray-600">
