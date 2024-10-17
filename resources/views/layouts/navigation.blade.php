@@ -11,17 +11,6 @@
                     </a>
                 </div>
             </div>
-
-            <!-- Navigation Links -->
-            <div class="hidden space-x-4 sm:flex items-center">
-                <form method="POST" action="{{ route('logout') }}" class="flex items-center">
-                    @csrf
-                    <a class="px-4 py-2 text-sm bg-red-500 font-semibold text-white rounded hover:bg-blue-100 hover:text-blue-600 transition duration-300 ease-in-out"
-                        href="{{ route('logout') }}" onclick="event.preventDefault(); this.closest('form').submit();">
-                        Logout
-                    </a>
-                </form>
-            </div>
         </div>
     </div>
 </nav>
