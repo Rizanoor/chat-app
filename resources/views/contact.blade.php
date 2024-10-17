@@ -37,7 +37,7 @@
             </div>
 
             <div class="h-[690px] overflow-y-auto">
-                <div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-4">
+                <div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-1">
                     <contact-component :user="{{ $user }}" :current-user="{{ auth()->user() }}"></contact-component>
                 </div>
             </div>

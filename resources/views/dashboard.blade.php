@@ -37,61 +37,10 @@
                 </div>
             </div>
 
-            <!-- Search Input -->
-            <div class="mb-2 flex items-center space-x-3">
-                <input type="text" id="search" name="search" placeholder="Search contacts..."
-                    class="w-full border border-gray-200 bg-gray-50 rounded-lg py-2 px-4 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    v-model="searchTerm" @input="filterUsers">
+            <!-- Integrasi Komponen Dashboard Vue -->
+            <dashboard-component :users="{{ json_encode($users) }}"
+                :current-user="{{ auth()->user() }}"></dashboard-component>
 
-                <a href="{{ route('contact') }}"
-                    class="flex-shrink-0 font-extrabold transition">
-                    <i class="fa-solid fa-ellipsis-vertical"></i>
-                </a>
-            </div>
-
-            <!-- Scrollable Chat List -->
-            <div class="h-[645px] overflow-y-auto rounded-lg">
-                <div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-4 mt-4">
-                    @foreach ($users as $user)
-                        <a href="{{ route('chat', $user->id) }}"
-                            class="bg-white p-4 block hover:bg-gray-100 border-b transition relative">
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-center">
-                                    <img src="https://ui-avatars.com/api/?name={{ $user->name }}&background=random&color=fff"
-                                        alt="{{ $user->name }}"
-                                        class="w-12 h-12 rounded-full border border-gray-300 mr-3">
-                                    <div>
-                                        <h3 class="text-lg font-semibold text-gray-800">{{ $user->name }}</h3>
-                                        <p class="text-sm text-gray-600">
-                                            @if ($user->lastMessage->is_read)
-                                                <span
-                                                    class="inline-flex items-center rounded-md bg-green-50 px-2 text-[0.5rem] font-medium text-green-700 ring-1 ring-inset ring-green-600/20">R</span>
-                                            @else
-                                                <span
-                                                    class="inline-flex items-center rounded-md bg-yellow-50 px-2 text-[0.5rem] font-medium text-yellow-800 ring-1 ring-inset ring-yellow-600/20">D</span>
-                                            @endif
-                                            &nbsp;
-                                            {{ $user->lastMessage ? Str::limit($user->lastMessage->text, 50) : 'No messages yet' }}
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="text-right">
-                                    <span class="text-gray-400 text-xs">
-                                        {{ \Carbon\Carbon::parse($user->lastMessage->created_at)->format('h:i A') }}
-                                    </span>
-                                    @if ($user->unreadCount > 0)
-                                        <div class="mt-1">
-                                            <span class="bg-green-500 text-white text-xs rounded-full px-3 py-1">
-                                                {{ $user->unreadCount }}
-                                            </span>
-                                        </div>
-                                    @endif
-                                </div>
-                            </div>
-                        </a>
-                    @endforeach
-                </div>
-            </div>
         </div>
     </div>
 </x-app-layout>
