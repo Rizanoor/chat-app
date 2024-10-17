@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-col h-[700px]">
+    <div class="flex flex-col h-full w-full">
         <div ref="contactContainer" class="overflow-y-auto flex-grow no-scrollbar">
             <div class="space-y-4">
                 <div class="flex">
@@ -45,12 +45,24 @@
                 <div v-for="contact in user" :key="contact.id"
                     class="border-b p-4 rounded-lg transition hover:bg-gray-200">
                     <a :href="`/chat/${contact.id}`" class="block">
-                        <div class="flex items-center">
-                            <img :src="`https://ui-avatars.com/api/?name=${contact.name}&background=random&color=fff`"
-                                :alt="contact.name" class="w-12 h-12 rounded-full mr-3">
-                            <div>
-                                <h3 class="text-lg font-semibold">{{ contact.name }}</h3>
-                                <p class="text-sm text-gray-600">{{ contact.email }}</p>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <img :src="`https://ui-avatars.com/api/?name=${contact.name}&background=random&color=fff`"
+                                    :alt="contact.name" class="w-12 h-12 rounded-full mr-3">
+                                <div>
+                                    <h3 class="text-lg font-semibold">{{ contact.name }}</h3>
+                                    <p class="text-sm text-gray-600">{{ contact.email }}</p>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-gray-400 text-xs">
+                                    {{ contact.lastMessage ? formatDate(contact.lastMessage.created_at) : '' }}
+                                </span>
+                                <div v-if="contact.unreadCount > 0" class="mt-1">
+                                    <span class="bg-red-500 text-white text-xs rounded-full px-3 py-1">
+                                        {{ contact.unreadCount }}
+                                    </span>
+                                </div>
                             </div>
                         </div>
                     </a>

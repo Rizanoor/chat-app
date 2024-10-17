@@ -1,12 +1,12 @@
 <x-app-layout>
     <div class="bg-white overflow-hidden sm:rounded-lg mt-6">
         <div class="p-6 text-gray-900">
-            <div class="flex items-center justify-between mb-4">
-                <h2 class="text-xl font-bold text-gray-700">Contacts</h2>
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-2xl font-bold text-gray-800">Contacts</h2>
                 <div class="flex items-center relative">
                     <!-- Avatar dan Nama -->
-                    <p class="text-md text-gray-600">
-                        <span class="font-normal text-gray-700"> Hi, {{ Auth::user()->name }}</span>
+                    <p class="text-md text-gray-600 mr-1">
+                        <span class="font-normal text-gray-800"> Hi, {{ Auth::user()->name }}</span>
                     </p>
                     <!-- Avatar Dropdown -->
                     <details class="relative ml-3 ">
@@ -36,8 +36,7 @@
                 </div>
             </div>
 
-            <!-- Scrollable Chat List -->
-            <div class="h-[645px] overflow-y-auto">
+            <div class="h-[690px] overflow-y-auto">
                 <div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-4">
                     <contact-component :user="{{ $user }}" :current-user="{{ auth()->user() }}"></contact-component>
                 </div>

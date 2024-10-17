@@ -75,19 +75,22 @@
                                         </p>
                                     </div>
                                 </div>
-                                @if ($user->unreadCount > 0)
-                                    <span class="bg-red-500 text-white text-xs rounded-full px-3 py-1">
-                                        {{ $user->unreadCount }}
+                                <div class="text-right">
+                                    <span class="text-gray-400 text-xs">
+                                        {{ \Carbon\Carbon::parse($user->lastMessage->created_at)->format('h:i A') }}
                                     </span>
-                                @endif
-                                <span class="text-gray-400 text-xs">
-                                    {{ \Carbon\Carbon::parse($user->lastMessage->created_at)->format('h:i A') }}
-                                </span>
+                                    @if ($user->unreadCount > 0)
+                                        <div class="mt-1">
+                                            <span class="bg-green-500 text-white text-xs rounded-full px-3 py-1">
+                                                {{ $user->unreadCount }}
+                                            </span>
+                                        </div>
+                                    @endif
+                                </div>
                             </div>
                         </a>
                     @endforeach
                 </div>
-
             </div>
         </div>
     </div>
