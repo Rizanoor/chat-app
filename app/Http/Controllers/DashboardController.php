@@ -13,12 +13,9 @@ class DashboardController extends Controller
     {
         $authUserId = Auth::user()->id;
 
-        // Ambil semua user kecuali user yang sedang login
         $users = User::where('id', '!=', $authUserId)->get();
 
-        // Loop untuk mengambil pesan terakhir dan jumlah pesan belum dibaca
         $users->transform(function ($user) use ($authUserId) {
-            // Ambil pesan terakhir antara auth user dan user tertentu
             $user->lastMessage = Message::where(function ($query) use ($user, $authUserId) {
                 $query->where('sender_id', $authUserId)
                     ->where('receiver_id', $user->id);
@@ -30,7 +27,6 @@ class DashboardController extends Controller
                 ->latest()
                 ->first();
 
-            // Hitung jumlah pesan yang belum dibaca
             $user->unreadCount = Message::where('receiver_id', $authUserId)
                 ->where('sender_id', $user->id)
                 ->where('is_read', false)
@@ -39,12 +35,10 @@ class DashboardController extends Controller
             return $user;
         });
 
-        // Filter hanya user dengan pesan terakhir, lalu urutkan berdasarkan pesan terbaru
         $users = $users->filter(fn($user) => $user->lastMessage !== null)
             ->sortByDesc(fn($user) => $user->lastMessage->created_at)
-            ->values(); // Reset index setelah diurutkan
+            ->values();
 
-        // Kirim ke view
         return view('dashboard', compact('users'));
     }
 }

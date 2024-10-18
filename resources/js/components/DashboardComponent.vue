@@ -43,7 +43,6 @@
                                     </span>
                                     {{ user.lastMessage ? user.lastMessage.text.slice(0, 50) : 'Belum ada pesan' }}
                                 </p>
-
                             </div>
                         </div>
                         <div class="text-right">
@@ -63,11 +62,13 @@
     </div>
 </template>
 
+
 <script setup>
 import { ref, onMounted, onBeforeUnmount } from 'vue';
 
 const props = defineProps({
     users: [Array, Object],
+    loggedInUser: Object,
 });
 
 const isDropdownOpen = ref(false);
@@ -84,6 +85,17 @@ const closeDropdown = (event) => {
 
 onMounted(() => {
     document.addEventListener('click', closeDropdown);
+
+    const loggedInUserId = props.loggedInUser.id;
+
+    Echo.private(`dashboard.${loggedInUserId}`)
+        .listen('MessageSent', (response) => {
+            const user = props.users.find(u => u.id === response.message.sender_id);
+            if (user) {
+                user.lastMessage = response.message;
+                user.unreadCount += 1;
+            }
+        })
 });
 
 onBeforeUnmount(() => {
