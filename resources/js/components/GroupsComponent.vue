@@ -16,7 +16,7 @@
                 <!-- Group List -->
                 <div v-for="group in groups" :key="group.id"
                     class="border-b p-4 rounded-lg hover:bg-gray-200 transition">
-                    <a :href="`/group/${group.id}`" class="block">
+                    <a :href="`/groups/${group.id}`" class="block">
                         <div class="flex justify-between items-center">
                             <div class="flex items-center space-x-3">
                                 <img :src="`https://ui-avatars.com/api/?name=${group.name}&background=random&color=fff`"
@@ -67,6 +67,12 @@
                 </div>
             </div>
         </div>
+
+
+        <!-- Toast Notification -->
+        <div v-if="showToast" class="fixed bottom-4 right-4 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg">
+            {{ toastMessage }}
+        </div>
     </div>
 </template>
 
@@ -83,8 +89,19 @@ const props = defineProps({
 });
 
 const showModal = ref(false);
+const showToast = ref(false);
 const groupName = ref('');
 const invitedUsers = ref([]);
+const toastMessage = ref('');
+
+const showToastNotification = (message) => {
+    toastMessage.value = message;
+    showToast.value = true;
+
+    setTimeout(() => {
+        showToast.value = false;
+    }, 3000);
+};
 
 const openModal = () => {
     showModal.value = true;
@@ -98,24 +115,13 @@ const createGroup = async () => {
             user_ids: invitedUsers.value,
         });
 
-        alert('Group created successfully!');
+        showToastNotification('Contact created successfully!');
         showModal.value = false;
         groupName.value = '';
         invitedUsers.value = [];
-        location.reload();
     } catch (error) {
-        console.error('Error creating group:', error);
-    }
-};
-
-const deleteGroup = async (groupId) => {
-    if (confirm('Are you sure you want to delete this group?')) {
-        try {
-            await axios.delete(`/groups/${groupId}`);
-            location.reload();
-        } catch (error) {
-            console.error('Error deleting group:', error);
-        }
+        console.error(error.response?.data?.errors || error.message);
+        showToastNotification('An error occurred while creating the contact.');
     }
 };
 </script>
