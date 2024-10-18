@@ -30,17 +30,17 @@
                             <div>
                                 <h3 class="text-lg font-semibold text-gray-800">{{ user.name }}</h3>
                                 <p class="text-sm text-gray-600">
-                                    <span v-if="user.unreadCount === 0">
-                                        <span v-if="user.lastMessage.is_read"
+                                    <template v-if="user.lastMessage && isSender(user.lastMessage.sender_id)">
+                                        <span v-if="user.lastMessage.is_read" 
                                             class="inline-flex items-center rounded-md bg-green-50 px-2 text-[0.5rem] font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
                                             R
                                         </span>
-                                        <span v-else
+                                        <span v-else 
                                             class="inline-flex items-center rounded-md bg-yellow-50 px-2 text-[0.5rem] font-medium text-yellow-800 ring-1 ring-inset ring-yellow-600/20">
                                             D
                                         </span>
                                         &nbsp;
-                                    </span>
+                                    </template>
                                     {{ user.lastMessage ? user.lastMessage.text.slice(0, 50) : 'Belum ada pesan' }}
                                 </p>
                             </div>
@@ -82,6 +82,10 @@ const closeDropdown = (event) => {
         isDropdownOpen.value = false;
     }
 };
+const isSender = (senderId) => {
+    return props.loggedInUser.id === senderId;
+};
+
 
 onMounted(() => {
     document.addEventListener('click', closeDropdown);
