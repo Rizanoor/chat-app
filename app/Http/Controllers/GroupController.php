@@ -34,5 +34,17 @@ class GroupController extends Controller
         return response()->json(['group' => $group], 201);
     }
 
+    public function show($id)
+    {
+        $group = Group::with(['users', 'messages.user'])->findOrFail($id);
 
+        if (!$group->users->contains(Auth::user()->id)) {
+            abort(403, 'Anda tidak diundang ke grup ini.');
+        }
+
+       $allUsers = User::all();
+
+       return view('groupschat', compact('group', 'allUsers'));
+   
+    }
 }

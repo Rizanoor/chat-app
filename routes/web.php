@@ -32,6 +32,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/groups', [GroupController::class, 'index']);
     Route::post('/groups', [GroupController::class, 'store']);
+    Route::get('/groups/{id}', [GroupController::class, 'show']);
+
 });
 
 require __DIR__ . '/auth.php';

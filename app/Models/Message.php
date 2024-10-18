@@ -10,6 +10,7 @@ class Message extends Model
     use HasFactory;
 
     protected $fillable = [
+        'group_id',
         'sender_id',
         'receiver_id',
         'text',
@@ -23,6 +24,11 @@ class Message extends Model
         'is_read' => 'boolean'
     ];
 
+    public function group()
+    {
+        return $this->belongsTo(Group::class);
+    }
+    
     public function sender()
     {
         return $this->belongsTo(User::class, 'sender_id');
