@@ -44,8 +44,9 @@
                         <p v-html="formatMessage(message.text)"></p>
                         <div class="flex items-center space-x-2 text-[10px] mt-1">
                             <div v-if="message.sender_id === currentUser.id" class="flex items-center space-x-1">
-                                <span v-if="message.is_read" class="text-green-500">Read</span>
-                                <span v-else-if="message.is_delivered" class="text-yellow-500">Delivered</span>
+                                <span v-if="message.is_read" class="items-left rounded-sm bg-red-100 px-1 text-[10px] text-red-700">R</span>
+                                <span v-else-if="message.is_delivered" class="items-left rounded-sm bg-blue-100 px-1 text-[10px] text-blue-700">D</span>
+                                
                                 <span v-else class="text-red-400">Sending...</span>
                             </div>
                             <span>{{ formatTime(message.created_at) }}</span>
