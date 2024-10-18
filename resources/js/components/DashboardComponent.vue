@@ -13,6 +13,9 @@
                     <a href="/contact" class="block px-4 py-2 text-gray-800 hover:bg-gray-200"><i
                             class="fa-solid fa-address-book mr-2"></i>Contact</a>
                     <hr>
+                    <a href="/groups" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">
+                        <i class="fa-solid fa-users mr-2"></i>Groups</a>
+                    <hr>
                     <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-200"><i
                             class="fa-solid fa-film mr-2"></i> Status</a>
                 </div>
@@ -22,7 +25,8 @@
         <!-- Scrollable Chat List -->
         <div class="h-[645px] overflow-y-auto rounded-lg">
             <div class="grid grid-cols-1 gap-1 mt-4">
-                <a v-for="user in users" :key="user.id" :href="`/chat/${user.id}`" class="bg-white p-4 block hover:bg-gray-100 border-b rounded-lg transition relative">
+                <a v-for="user in users" :key="user.id" :href="`/chat/${user.id}`"
+                    class="bg-white p-4 block hover:bg-gray-100 border-b rounded-lg transition relative">
                     <div class="flex items-center justify-between">
                         <div class="flex items-center">
                             <img :src="`https://ui-avatars.com/api/?name=${user.name}&background=random&color=fff`"
@@ -31,11 +35,11 @@
                                 <h3 class="text-lg font-semibold text-gray-800">{{ user.name }}</h3>
                                 <p class="text-sm text-gray-600">
                                     <template v-if="user.lastMessage && isSender(user.lastMessage.sender_id)">
-                                        <span v-if="user.lastMessage.is_read" 
+                                        <span v-if="user.lastMessage.is_read"
                                             class="inline-flex items-center rounded-md bg-green-50 px-2 text-[0.5rem] font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
                                             R
                                         </span>
-                                        <span v-else 
+                                        <span v-else
                                             class="inline-flex items-center rounded-md bg-yellow-50 px-2 text-[0.5rem] font-medium text-yellow-800 ring-1 ring-inset ring-yellow-600/20">
                                             D
                                         </span>
