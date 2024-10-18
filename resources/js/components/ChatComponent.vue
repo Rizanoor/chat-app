@@ -164,7 +164,7 @@ const setReplyToMessage = (message) => {
 };
 
 const sendTypingEvent = () => {
-    Echo.private(`chat.${props.user.id}`).whisper("typing", {
+    Echo.private(`chat.${props.currentUser.id}`).whisper("typing", {
         userID: props.currentUser.id,
     });
 
