@@ -11,9 +11,13 @@ class GroupController extends Controller
 {
     public function index()
     {
-        $groups = Group::with('users')->get();
-        $users = User::all();
         $loggedInUserId = Auth::user()->id;
+
+        $groups = Group::whereHas('users', function ($query) use ($loggedInUserId) {
+            $query->where('user_id', $loggedInUserId);
+        })->with('users')->get();
+
+        $users = User::all();
 
         return view('groups', compact('groups', 'users', 'loggedInUserId'));
     }
@@ -42,9 +46,8 @@ class GroupController extends Controller
             abort(403, 'Anda tidak diundang ke grup ini.');
         }
 
-       $allUsers = User::all();
+        $allUsers = User::all();
 
-       return view('groupschat', compact('group', 'allUsers'));
-   
+        return view('groupschat', compact('group', 'allUsers'));
     }
 }
