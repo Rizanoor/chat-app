@@ -22,8 +22,7 @@
         <!-- Scrollable Chat List -->
         <div class="h-[645px] overflow-y-auto rounded-lg">
             <div class="grid grid-cols-1 gap-1 mt-4">
-                <a v-for="user in users" :key="user.id" :href="`/chat/${user.id}`"
-                    class="bg-white p-4 block hover:bg-gray-100 border-b rounded-lg transition relative">
+                <a v-for="user in users" :key="user.id" :href="`/chat/${user.id}`" class="bg-white p-4 block hover:bg-gray-100 border-b rounded-lg transition relative">
                     <div class="flex items-center justify-between">
                         <div class="flex items-center">
                             <img :src="`https://ui-avatars.com/api/?name=${user.name}&background=random&color=fff`"

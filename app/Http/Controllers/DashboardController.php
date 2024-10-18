@@ -11,31 +11,40 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $users = User::whereNot('id', Auth::user()->id)->get();
+        $authUserId = Auth::user()->id;
 
-        foreach ($users as $user) {
-            $user->lastMessage = Message::where(function ($query) use ($user) {
-                $query->where('sender_id', Auth::user()->id)
+        // Ambil semua user kecuali user yang sedang login
+        $users = User::where('id', '!=', $authUserId)->get();
+
+        // Loop untuk mengambil pesan terakhir dan jumlah pesan belum dibaca
+        $users->transform(function ($user) use ($authUserId) {
+            // Ambil pesan terakhir antara auth user dan user tertentu
+            $user->lastMessage = Message::where(function ($query) use ($user, $authUserId) {
+                $query->where('sender_id', $authUserId)
                     ->where('receiver_id', $user->id);
-            })->orWhere(function ($query) use ($user) {
-                $query->where('sender_id', $user->id)
-                    ->where('receiver_id', Auth::user()->id);
-            })->latest()->first();
+            })
+                ->orWhere(function ($query) use ($user, $authUserId) {
+                    $query->where('sender_id', $user->id)
+                        ->where('receiver_id', $authUserId);
+                })
+                ->latest()
+                ->first();
 
-            $user->unreadCount = Message::where('receiver_id', Auth::user()->id)
+            // Hitung jumlah pesan yang belum dibaca
+            $user->unreadCount = Message::where('receiver_id', $authUserId)
                 ->where('sender_id', $user->id)
                 ->where('is_read', false)
                 ->count();
-        }
 
-        $users = $users->filter(function ($user) {
-            return $user->lastMessage !== null;
+            return $user;
         });
 
-        $users = $users->sortByDesc(function ($user) {
-            return optional($user->lastMessage)->created_at;
-        });
+        // Filter hanya user dengan pesan terakhir, lalu urutkan berdasarkan pesan terbaru
+        $users = $users->filter(fn($user) => $user->lastMessage !== null)
+            ->sortByDesc(fn($user) => $user->lastMessage->created_at)
+            ->values(); // Reset index setelah diurutkan
 
+        // Kirim ke view
         return view('dashboard', compact('users'));
     }
 }
