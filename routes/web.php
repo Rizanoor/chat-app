@@ -33,6 +33,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/groups', [GroupController::class, 'index']);
     Route::post('/groups', [GroupController::class, 'store']);
     Route::get('/groups/{id}', [GroupController::class, 'show']);
+    Route::put('/groups/{id}', [GroupController::class, 'update']);
+    Route::post('/groups/{group}/messages', [GroupController::class, 'sendMessage']);
+
+
 
 });
 

@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Group;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Broadcast;
 
@@ -13,5 +14,11 @@ Broadcast::channel('presence.chat', function ($user) {
 
 Broadcast::channel('dashboard.{id}', function ($user, $id) {
     return $user->id === (int) $id;
+});
+
+Broadcast::channel('group.{id}', function ($user, $id) {
+    $group = Group::find($id);
+
+    return $group && $group->users->contains($user->id);
 });
 

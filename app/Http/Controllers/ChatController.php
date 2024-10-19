@@ -57,7 +57,6 @@ class ChatController extends Controller
     {
         $replyToId = $request->input('reply_to');
 
-
         $message = Message::create([
             'sender_id' => Auth::user()->id,
             'receiver_id' => $user->id,

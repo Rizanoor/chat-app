@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\MessageGroupSent;
 use App\Models\Group;
+use App\Models\Message;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -22,6 +24,7 @@ class GroupController extends Controller
         return view('groups', compact('groups', 'users', 'loggedInUserId'));
     }
 
+    // create groups
     public function store(Request $request)
     {
         $request->validate([
@@ -38,9 +41,25 @@ class GroupController extends Controller
         return response()->json(['group' => $group], 201);
     }
 
+    // update group
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'user_ids' => 'required|array',
+        ]);
+
+        $group = Group::findOrFail($id);
+        $group->name = $request->name;
+        $group->users()->sync($request->user_ids);
+        $group->save();
+
+        return response()->json(['message' => 'Group updated successfully.']);
+    }
+
     public function show($id)
     {
-        $group = Group::with(['users', 'messages.user'])->findOrFail($id);
+        $group = Group::with(['users', 'messages'])->findOrFail($id);
 
         if (!$group->users->contains(Auth::user()->id)) {
             abort(403, 'Anda tidak diundang ke grup ini.');
@@ -50,4 +69,18 @@ class GroupController extends Controller
 
         return view('groupschat', compact('group', 'allUsers'));
     }
+
+    public function sendMessage(Request $request, $groupId)
+    {
+        $message = Message::create([
+            'text' => $request->input('text'),
+            'sender_id' => Auth::id(),
+            'group_id' => $groupId,
+        ]);
+        
+        broadcast(new MessageGroupSent($message))->toOthers();
+
+        return response()->json($message);
+    }
+
 }
