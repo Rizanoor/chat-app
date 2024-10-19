@@ -30,9 +30,12 @@
                 All
             </span>
             <span @click="navigateToGroup" 
-                  :class="{'bg-blue-500 text-white': activeChip === 'group', 'text-gray-700': activeChip !== 'group'}" 
-                  class="inline-flex items-center justify-center px-3 py-1 rounded-full border border-gray-300 text-sm font-medium cursor-pointer">
+                  class="inline-flex items-center justify-center px-3 py-1 mr-2  rounded-full border border-gray-300 text-sm font-medium cursor-pointer">
                 Group
+            </span>
+            <span @click="navigateToStatus" 
+                  class="inline-flex items-center justify-center px-3 py-1 rounded-full border border-gray-300 text-sm font-medium cursor-pointer">
+                Status
             </span>
         </div>
 
@@ -111,6 +114,10 @@ const setActiveChip = (chip) => {
 
 const navigateToGroup = () => {
     window.location.href = '/groups';
+}
+
+const navigateToStatus = () => {
+    window.location.href = '/status';
 }
 
 onMounted(() => {

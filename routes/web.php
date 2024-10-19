@@ -5,6 +5,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\StatusController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -35,7 +36,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/groups/{id}', [GroupController::class, 'show']);
     Route::put('/groups/{id}', [GroupController::class, 'update']);
     Route::post('/groups/{group}/messages', [GroupController::class, 'sendMessage']);
-
+    
+    Route::get('/status', [StatusController::class, 'index']);
 
 
 });
