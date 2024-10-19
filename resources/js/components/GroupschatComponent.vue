@@ -8,7 +8,19 @@
 
             <img :src="'https://ui-avatars.com/api/?name=' + group.name + '&background=random&color=fff'" alt="avatar"
                 class="w-12 h-12 rounded-full mr-3">
-            <h1 class="text-lg font-semibold mr-2">{{ group.name }}</h1>
+
+            <div>
+                <h1 class="text-lg font-semibold">{{ group.name }}</h1>
+
+                <!-- Daftar User dengan Ellipsis -->
+                <p class="text-sm text-gray-600">
+                    <span v-for="(user, index) in limitedUsers" :key="user.id">
+                        {{ user.name }}
+                        <span v-if="index < limitedUsers.length - 1">, </span>
+                    </span>
+                    <span v-if="group.users.length > maxVisibleUsers">...</span>
+                </p>
+            </div>
 
             <div class="ml-auto flex items-center">
                 <a href="#" @click="openEditModal"
@@ -17,6 +29,7 @@
                 </a>
             </div>
         </div>
+
 
         <!-- Modal Edit Group -->
         <div v-if="showEditModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
@@ -89,7 +102,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, watch, nextTick } from 'vue';
+import { ref, onMounted, computed, nextTick } from 'vue';
 import axios from 'axios';
 
 const props = defineProps({
@@ -144,6 +157,12 @@ const formatTime = (datetime) => {
     const options = { hour: '2-digit', minute: '2-digit' };
     return new Date(datetime).toLocaleTimeString([], options);
 };
+
+const maxVisibleUsers = 2;
+const limitedUsers = computed(() => {
+    return props.group.users.slice(0, maxVisibleUsers);
+});
+
 
 const sendMessage = async () => {
     if (!newMessage.value.trim()) return;
