@@ -22,6 +22,20 @@
             </div>
         </div>
 
+        <!-- Chip Component -->
+        <div class="mt-4">
+            <span @click="setActiveChip('all')" 
+                  :class="{'bg-green-500 text-white': activeChip === 'all', 'text-gray-700': activeChip !== 'all'}" 
+                  class="inline-flex items-center justify-center px-3 py-1 rounded-full text-sm font-medium mr-2 cursor-pointer">
+                All
+            </span>
+            <span @click="navigateToGroup" 
+                  :class="{'bg-blue-500 text-white': activeChip === 'group', 'text-gray-700': activeChip !== 'group'}" 
+                  class="inline-flex items-center justify-center px-3 py-1 rounded-full border border-gray-300 text-sm font-medium cursor-pointer">
+                Group
+            </span>
+        </div>
+
         <!-- Scrollable Chat List -->
         <div class="h-[645px] overflow-y-auto rounded-lg">
             <div class="grid grid-cols-1 gap-1 mt-4">
@@ -90,6 +104,14 @@ const isSender = (senderId) => {
     return props.loggedInUser.id === senderId;
 };
 
+const activeChip = ref('all');
+const setActiveChip = (chip) => {
+    activeChip.value = chip;
+};
+
+const navigateToGroup = () => {
+    window.location.href = '/groups';
+}
 
 onMounted(() => {
     document.addEventListener('click', closeDropdown);
