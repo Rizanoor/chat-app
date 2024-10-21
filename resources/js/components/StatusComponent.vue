@@ -16,14 +16,15 @@
               + New Status
             </button>
           </div>
-  
-          <div v-if="showPreview" class="mt-4">
+          <div v-if="showPreview" class="mt-4 relative">
             <video ref="video" class="w-full h-64 bg-black" autoplay playsinline></video>
+            
             <button
               @click="stopMedia"
-              class="bg-red-500 text-white p-2 rounded-lg mt-2 hover:bg-red-600 transition"
+              class="inset-0 m-auto bg-red-500 mt-2 text-white p-4 rounded-full hover:bg-red-600 transition flex items-center justify-center"
+              style="width: 60px; height: 60px;"
             >
-              Stop Media
+              <i class="fa-solid fa-video-slash text-2xl"></i>
             </button>
           </div>
         </div>
