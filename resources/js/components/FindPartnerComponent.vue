@@ -14,7 +14,7 @@
             </a>
 
             <a href="#"
-                class="text-gray-100 px-3 py-2 rounded-full hover:bg-gray-300 hover:text-gray-800 transition duration-300 border border-white">
+                class="text-gray-100 px-3 py-2 rounded-full bg-white bg-opacity-30 backdrop-blur-lg hover:bg-opacity-50 hover:bg-gray-300 hover:text-gray-800 transition duration-300 border border-white">
                 <i class="fa-solid fa-location-dot"></i>&nbsp; 2.5KM
             </a>
         </div>
