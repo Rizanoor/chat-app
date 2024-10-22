@@ -34,8 +34,12 @@
                 Group
             </span>
             <span @click="navigateToStatus" 
-                  class="inline-flex items-center justify-center px-3 py-1 rounded-full border border-gray-300 text-sm font-medium cursor-pointer">
+                  class="inline-flex items-center justify-center px-3 py-1 mr-2 rounded-full border border-gray-300 text-sm font-medium cursor-pointer">
                 Status
+            </span>
+            <span @click="navigateToNearby" 
+                  class="inline-flex items-center justify-center px-3 py-1 rounded-full border border-gray-300 text-sm font-medium cursor-pointer">
+                Nearby
             </span>
         </div>
 
@@ -118,6 +122,9 @@ const navigateToGroup = () => {
 
 const navigateToStatus = () => {
     window.location.href = '/status';
+}
+const navigateToNearby = () => {
+    window.location.href = '/find-partner';
 }
 
 onMounted(() => {

@@ -7,7 +7,7 @@
         <div class="absolute inset-0 bg-gradient-to-t from-[#4b164c8d] via-[#4b164c0f]"></div>
 
         <!-- Navigasi ditempatkan di atas gambar -->
-        <div class="absolute top-4 left-4 right-4 z-20 flex items-center justify-between">
+        <div class="absolute top-6 left-6 right-6 z-20 flex items-center justify-between">
             <a href="/dashboard"
                 class="text-gray-100 px-3 py-2 rounded-full hover:bg-gray-300 hover:text-gray-800 transition duration-300 border border-white">
                 <i class="fas fa-arrow-left"></i>
