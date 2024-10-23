@@ -1,15 +1,19 @@
 <template>
     <div class="items-center rounded-b-md py-5 px-5 bg-[#4B164C]">
-        <div class="items-center py-4 px-1">
-            <h1 class=" text-center text-white font-bold text-xl">Messages</h1>
+        <div class="flex items-center py-1 px-1">
+            <a href="/dashboard"
+                class="text-white px-3 py-2 rounded-full hover:bg-gray-300 transition duration-300 border border-white">
+                <i class="fas fa-arrow-left"></i>
+            </a>
+            <h1 class="flex-1 text-center text-white font-bold text-xl">Messages</h1>
         </div>
+
         <div class="mt-8 px-5">
             <h2 class="text-white text-lg mb-4">Recent Matches</h2>
             <div class="flex space-x-3 overflow-x-auto snap-x snap-mandatory scroll-smooth">
                 <div class="relative snap-center group" v-for="user in users" :key="user.id">
                     <img :src="`https://ui-avatars.com/api/?name=${user.name}&background=random&color=fff`"
                         :alt="user.name" class="rounded-xl w-24 h-28 object-cover transition duration-300">
-                    <!-- Hover effect -->
                     <div
                         class="absolute inset-0 flex items-center justify-center bg-[#DD88CF] bg-opacity-60 rounded-xl opacity-0 group-hover:opacity-100 transition duration-300">
                         <i class="fa-solid fa-heart text-white text-lg"></i>
@@ -71,17 +75,7 @@ const props = defineProps({
     loggedInUser: Object,
 });
 
-const isDropdownOpen = ref(false);
 
-const toggleDropdown = () => {
-    isDropdownOpen.value = !isDropdownOpen.value;
-};
-
-const closeDropdown = (event) => {
-    if (!event.target.closest('.relative')) {
-        isDropdownOpen.value = false;
-    }
-};
 const isSender = (senderId) => {
     return props.loggedInUser.id === senderId;
 };
@@ -95,16 +89,11 @@ const navigateToGroup = () => {
     window.location.href = '/groups';
 }
 
-const navigateToStatus = () => {
-    window.location.href = '/status';
-}
 const navigateToNearby = () => {
     window.location.href = '/find-partner';
 }
 
 onMounted(() => {
-    document.addEventListener('click', closeDropdown);
-
     const loggedInUserId = props.loggedInUser.id;
 
     Echo.private(`dashboard.${loggedInUserId}`)
@@ -115,10 +104,6 @@ onMounted(() => {
                 user.unreadCount += 1;
             }
         })
-});
-
-onBeforeUnmount(() => {
-    document.removeEventListener('click', closeDropdown);
 });
 
 const formatTime = (time) => {
