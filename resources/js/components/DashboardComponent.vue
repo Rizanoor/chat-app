@@ -1,7 +1,7 @@
 <template>
     <div class="items-center rounded-b-md py-5 px-5 bg-[#4B164C]">
         <div class="flex items-center py-1 px-1">
-            <a href="/dashboard"
+            <a href="/index"
                 class="text-white px-3 py-2 rounded-full hover:bg-gray-300 transition duration-300 border border-white">
                 <i class="fas fa-arrow-left"></i>
             </a>
@@ -23,24 +23,9 @@
     
             </div>
         </div>
-        <div class="mt-4 px-5">
-            <span @click="setActiveChip('all')"
-                :class="{ 'bg-[#DD88CF] text-white': activeChip === 'all', 'text-gray-700': activeChip !== 'all' }"
-                class="inline-flex items-center justify-center px-3 py-1 rounded-full text-sm font-medium mr-2 cursor-pointer">
-                All
-            </span>
-            <span @click="navigateToGroup"
-                class="inline-flex items-center text-white justify-center px-3 py-1 mr-2  rounded-full border border-gray-300 text-sm font-medium cursor-pointer">
-                Group
-            </span>
-            <span @click="navigateToNearby"
-                class="inline-flex items-center text-white justify-center px-3 py-1 rounded-full border border-gray-300 text-sm font-medium cursor-pointer">
-                Nearby
-            </span>
-        </div>
     </div>
 
-    <div class="bg-white h-[520px]">
+    <div class="bg-white h-[515px]">
         <div class="overflow-y-auto h-full">
             <a v-for="user in users" :key="user.id" :href="`/chat/${user.id}`">
                 <div class="flex justify-between items-center border-b py-6 px-8">

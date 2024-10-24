@@ -45,14 +45,6 @@
             <!-- Nama dan Lokasi -->
             <h2 class="text-3xl font-bold mb-1">Alfredo Calzoni, 20</h2>
             <p class="text-lg mb-4">Hamburg, Germany</p>
-
-            <!-- Tombol Match dengan persentase -->
-            <div class="flex justify-center items-center">
-                <div
-                    class="flex items-center bg-[#4B174C] text-white rounded-full px-4 py-2 font-bold text-lg space-x-2">
-                    <span>Match</span>
-                </div>
-            </div>
         </div>
         <!-- About Section -->
         <div class="text-left mb-4">

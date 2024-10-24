@@ -16,37 +16,26 @@
         rel="stylesheet">
 
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <style>
         body {
             font-family: 'Poppins', sans-serif;
+            margin:  0px;
+            padding: 0px;
+            background: #fafafa;
         }
     </style>
 </head>
 
 <body class="antialiased">
-    <div class="min-h-screen bg-gray-100" id="app">
-        @include('layouts.navigation')
-
-        <!-- Page Heading -->
-        @isset($header)
-            <header class="bg-white shadow">
-                <div class="max-w-lg mx-auto py-6 px-4 sm:px-6">
-                    {{ $header }}
-                </div>
-            </header>
-        @endisset
-
-        <!-- Page Content -->
-        <main>
-            <div class="max-w-lg mx-auto px-4 sm:px-6">
-                {{ $slot }}
-            </div>
-        </main>
-    </div>
+        <div class="max-w-lg mx-auto px-4 sm:px-6" id="app">
+            {{ $slot }}
+        </div>
 </body>
 
 </html>

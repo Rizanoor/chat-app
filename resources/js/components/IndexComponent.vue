@@ -45,7 +45,7 @@
         </div>
     </div>
 
-    <div class="flex flex-col h-[65vh] overflow-y-auto px-6">
+    <div class="flex flex-col h-[66vh] overflow-y-auto px-6">
         <div class="flex justify-center mb-2">
             <div class="bg-[#f4e1f7] px-1 py-1 rounded-full">
                 <div class="flex space-x-0">
@@ -53,7 +53,7 @@
                         class="bg-white text-[#5E296B] font-bold py-2 px-6 rounded-l-full shadow-md hover:bg-[#E4ACD4] transition duration-300">
                         Make Friends
                     </button>
-                    <button
+                    <button @click="navigateToFind"
                         class="bg-[#f4e1f7] text-[#5E296B] font-bold py-2 px-6 rounded-r-full border border-transparent hover:bg-[#E4ACD4] transition duration-300">
                         Search Partners
                     </button>
@@ -108,3 +108,10 @@
         </div>
     </div>
 </template>
+
+<script setup>
+
+const navigateToFind = () => {
+    window.location.href = '/find-partner';
+}
+</script>
