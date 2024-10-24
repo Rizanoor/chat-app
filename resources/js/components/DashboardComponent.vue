@@ -30,7 +30,7 @@
             <a v-for="user in users" :key="user.id" :href="`/chat/${user.id}`">
                 <div class="flex justify-between items-center border-b py-6 px-8">
                     <div class="flex items-center">
-                        <img :src="`https://ui-avatars.com/api/?name=${user.name}&background=random&color=fff`"
+                        <img :src="`https://i.pravatar.cc/100`"
                             :alt="user.name" class="w-12 h-12 rounded-full border border-gray-300 mr-3">
                         <div>
                             <h3 class="font-bold">{{ user.name }}</h3>

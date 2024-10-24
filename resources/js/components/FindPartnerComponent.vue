@@ -1,7 +1,7 @@
 <template>
     <article class="relative isolate flex flex-col rounded-2xl px-8 pb-8 pt-[20rem] max-w-lg mx-auto">
         <!-- Gambar sebagai latar belakang -->
-        <img src="https://images.unsplash.com/photo-1499856871958-5b9627545d1a" alt="University of Southern California"
+        <img src="https://i.pravatar.cc/100" alt="University of Southern California"
             class="absolute inset-0 h-full w-full object-cover">
         <!-- Overlay untuk efek gradasi -->
         <div class="absolute inset-0 bg-gradient-to-t from-[#4b164c8d] via-[#4b164c0f]"></div>

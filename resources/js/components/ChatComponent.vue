@@ -5,7 +5,7 @@
                 class="mr-3 text-gray-800 px-3 py-2 rounded-full hover:bg-gray-300 transition duration-300">
                 <i class="fas fa-arrow-left"></i>
             </a>
-            <img :src="'https://ui-avatars.com/api/?name=' + user.name + '&background=random&color=fff'" alt="avatar"
+            <img :src="'https://i.pravatar.cc/100'" alt="avatar"
                 class="w-12 h-12 rounded-full mr-3">
 
             <h1 class="text-lg font-semibold mr-2">{{ user.name }}</h1>
