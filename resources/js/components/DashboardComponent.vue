@@ -1,97 +1,154 @@
 <template>
-    <div class="items-center rounded-b-md py-5 px-5 bg-[#4B164C]">
-        <div class="flex items-center py-1 px-1">
-            <a href="/index"
-                class="text-white px-3 py-2 rounded-full hover:bg-gray-300 transition duration-300 border border-white">
+    <div class="items-center rounded-b-md py-5 px-5">
+        <!-- Header -->
+        <div class="flex items-center py-2 px-2">
+            <button
+                class="text-[#5E296B] border border-[#E4ACD4] rounded-full px-3 py-2 hover:bg-[#E4ACD4] transition ease-in-out duration-300">
                 <i class="fas fa-arrow-left"></i>
-            </a>
-            <h1 class="flex-1 text-center text-white font-bold text-xl">Messages</h1>
+            </button>
+            <h1 class="flex-1 text-center text-3xl font-bold text-[#5E296B]">Matches</h1>
         </div>
 
-        <div class="mt-8 px-5">
-            <h2 class="text-white text-lg mb-4">Recent Matches</h2>
-            <div class="flex space-x-3 overflow-x-auto snap-x snap-mandatory scroll-smooth">
-                <div class="relative snap-center group" v-for="user in users" :key="user.id">
-                    <img :src="`https://ui-avatars.com/api/?name=${user.name}&background=random&color=fff`"
-                        :alt="user.name" class="rounded-xl w-24 h-28 object-cover transition duration-300">
-                    <div
-                        class="absolute inset-0 flex items-center justify-center bg-[#DD88CF] bg-opacity-60 rounded-xl opacity-0 group-hover:opacity-100 transition duration-300">
-                        <i class="fa-solid fa-heart text-white text-lg"></i>
-                        <span class="text-white font-bold ml-1">32</span>
-                    </div>
+        <!-- Stories Section -->
+        <div class="flex space-x-4 px-4 overflow-x-auto mt-4">
+            <div class="flex flex-col items-center">
+                <div class="relative">
+                    <img src="https://i.pravatar.cc/100" alt="My Story"
+                        class="rounded-full w-20 h-15 border-4 border-red-300">
                 </div>
-    
+                <p class="text-sm mt-2 text-center text-gray-800">Like <span class="text-[#E4ACD4] font-bold">32</span>
+                </p>
+            </div>
+            <div class="flex flex-col items-center">
+                <img src="https://i.pravatar.cc/100?img=1" alt="Selena"
+                    class="rounded-full w-20 h-15 border-4 border-[#E4ACD4]">
+                <p class="text-sm mt-2 text-center text-gray-800">Like <span class="text-[#E4ACD4] font-bold">10</span>
+                </p>
+            </div>
+            <div class="flex flex-col items-center">
+                <img src="https://i.pravatar.cc/100?img=2" alt="Clara"
+                    class="rounded-full w-20 h-15 border-4 border-[#E4ACD4]">
+                <p class="text-sm mt-2 text-center text-gray-800">Like <span class="text-[#E4ACD4] font-bold">20</span>
+                </p>
+            </div>
+            <div class="flex flex-col items-center">
+                <img src="https://i.pravatar.cc/100?img=3" alt="Fabian"
+                    class="rounded-full w-20 h-15 border-4 border-[#E4ACD4]">
+                <p class="text-sm mt-2 text-center text-gray-800">Like <span class="text-[#E4ACD4] font-bold">40</span>
+                </p>
+            </div>
+            <div class="flex flex-col items-center">
+                <img src="https://i.pravatar.cc/100?img=4" alt="Gwen"
+                    class="rounded-full w-20 h-15 border-4 border-[#E4ACD4]">
+                <p class="text-sm mt-2 text-center text-gray-800">Like <span class="text-[#E4ACD4] font-bold">11</span>
+                </p>
             </div>
         </div>
     </div>
 
-    <div class="bg-white h-[515px]">
-        <div class="overflow-y-auto h-full">
-            <a v-for="user in users" :key="user.id" :href="`/chat/${user.id}`">
-                <div class="flex justify-between items-center border-b py-6 px-8">
-                    <div class="flex items-center">
-                        <img :src="`https://ui-avatars.com/api/?name=${user.name}&background=random&color=fff`"
-                            :alt="user.name" class="w-12 h-12 rounded-full border border-gray-300 mr-3">
-                        <div>
-                            <h3 class="font-bold">{{ user.name }}</h3>
-                            <p class="text-gray-500 text-sm">{{ user.lastMessage ? user.lastMessage.text.slice(0, 50) :
-                                'Belum ada pesan' }}</p>
-                        </div>
+    <div class="flex flex-col h-[66vh] overflow-y-auto px-6">
+        <div class="justify-center px-4">
+            <h1 class="text-left text-xl font-bold text-[#5E296B]">Your Matches <span
+                    class="text-[#E4ACD4] font-bold">32</span></h1>
+        </div>
+
+        <div class="overflow-y-auto px-4 py-6">
+            <div class="grid grid-cols-2 gap-4 justify-items-center">
+                <!-- Card 1 -->
+                <div class="bg-white rounded-xl shadow-md border border-[#E4ACD4] p-3 w-48 relative">
+                    <div
+                        class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-[#E4ACD4] text-white text-xs font-bold py-1 px-3 rounded-full">
+                        10% Match
                     </div>
-                    <div class="text-right">
-                        <div v-if="user.unreadCount > 0" class="mt-1">
-                            <span class="bg-[#DD88CF] text-white text-xs rounded-full px-3 py-1">
-                                {{ user.unreadCount }}
-                            </span>
+                    <img class="rounded-lg w-full h-40 object-cover" src="https://i.pravatar.cc/200" alt="James">
+                    <div class="mt-4 text-center">
+                        <div class="text-sm text-gray-800 bg-gray-500 bg-opacity-20 backdrop-blur-md rounded-full px-2 py-1 inline-block mb-2 border border-white">
+                            3.3 km away
                         </div>
-                        <span class="text-sm text-gray-400">{{ formatTime(user.lastMessage.created_at) }}</span>
+                        <h2 class="text-lg font-bold text-gray-900">James, 20</h2>
+                        <p class="text-sm text-gray-500">HANOVER</p>
+                    </div>
+
+                </div>
+
+                <!-- Card 2 -->
+                <div class="bg-white rounded-xl shadow-md border border-[#E4ACD4] p-3 w-48 relative">
+                    <div
+                        class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-[#E4ACD4] text-white text-xs font-bold py-1 px-3 rounded-full">
+                        94% Match
+                    </div>
+                    <img class="rounded-lg w-full h-40 object-cover" src="https://i.pravatar.cc/201" alt="Eddie">
+                    <div class="mt-4 text-center">
+                        <div class="text-sm text-gray-800 bg-gray-500 bg-opacity-20 backdrop-blur-md rounded-full px-2 py-1 inline-block mb-2 border border-white">
+                            1.3 km away
+                        </div>
+                        <h2 class="text-lg font-bold text-gray-900">James, 20</h2>
+                        <p class="text-sm text-gray-500">HANOVER</p>
                     </div>
                 </div>
-            </a>
+                <div class="bg-white rounded-xl shadow-md border border-[#E4ACD4] p-3 w-48 relative">
+                    <div
+                        class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-[#E4ACD4] text-white text-xs font-bold py-1 px-3 rounded-full">
+                        94% Match
+                    </div>
+                    <img class="rounded-lg w-full h-40 object-cover" src="https://i.pravatar.cc/201" alt="Eddie">
+                    <div class="mt-4 text-center">
+                        <div class="text-sm text-gray-800 bg-gray-500 bg-opacity-20 backdrop-blur-md rounded-full px-2 py-1 inline-block mb-2 border border-white">
+                            1.3 km away
+                        </div>
+                        <h2 class="text-lg font-bold text-gray-900">James, 20</h2>
+                        <p class="text-sm text-gray-500">HANOVER</p>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl shadow-md border border-[#E4ACD4] p-3 w-48 relative">
+                    <div
+                        class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-[#E4ACD4] text-white text-xs font-bold py-1 px-3 rounded-full">
+                        94% Match
+                    </div>
+                    <img class="rounded-lg w-full h-40 object-cover" src="https://i.pravatar.cc/201" alt="Eddie">
+                    <div class="mt-4 text-center">
+                        <div class="text-sm text-gray-800 bg-gray-500 bg-opacity-20 backdrop-blur-md rounded-full px-2 py-1 inline-block mb-2 border border-white">
+                            1.3 km away
+                        </div>
+                        <h2 class="text-lg font-bold text-gray-900">James, 20</h2>
+                        <p class="text-sm text-gray-500">HANOVER</p>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl shadow-md border border-[#E4ACD4] p-3 w-48 relative">
+                    <div
+                        class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-[#E4ACD4] text-white text-xs font-bold py-1 px-3 rounded-full">
+                        94% Match
+                    </div>
+                    <img class="rounded-lg w-full h-40 object-cover" src="https://i.pravatar.cc/201" alt="Eddie">
+                    <div class="mt-4 text-center">
+                        <div class="text-sm text-gray-800 bg-gray-500 bg-opacity-20 backdrop-blur-md rounded-full px-2 py-1 inline-block mb-2 border border-white">
+                            1.3 km away
+                        </div>
+                        <h2 class="text-lg font-bold text-gray-900">James, 20</h2>
+                        <p class="text-sm text-gray-500">HANOVER</p>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl shadow-md border border-[#E4ACD4] p-3 w-48 relative">
+                    <div
+                        class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-[#E4ACD4] text-white text-xs font-bold py-1 px-3 rounded-full">
+                        94% Match
+                    </div>
+                    <img class="rounded-lg w-full h-40 object-cover" src="https://i.pravatar.cc/201" alt="Eddie">
+                    <div class="mt-4 text-center">
+                        <div class="text-sm text-gray-800 bg-gray-500 bg-opacity-20 backdrop-blur-md rounded-full px-2 py-1 inline-block mb-2 border border-white">
+                            1.3 km away
+                        </div>
+                        <h2 class="text-lg font-bold text-gray-900">James, 20</h2>
+                        <p class="text-sm text-gray-500">HANOVER</p>
+                    </div>
+                </div>
+
+            </div>
         </div>
+
     </div>
+
 </template>
 
 <script setup>
-import { ref, onMounted, onBeforeUnmount } from 'vue';
-
-const props = defineProps({
-    users: [Array, Object],
-    loggedInUser: Object,
-});
-
-
-const isSender = (senderId) => {
-    return props.loggedInUser.id === senderId;
-};
-
-const activeChip = ref('all');
-const setActiveChip = (chip) => {
-    activeChip.value = chip;
-};
-
-const navigateToGroup = () => {
-    window.location.href = '/groups';
-}
-
-const navigateToNearby = () => {
-    window.location.href = '/find-partner';
-}
-
-onMounted(() => {
-    const loggedInUserId = props.loggedInUser.id;
-
-    Echo.private(`dashboard.${loggedInUserId}`)
-        .listen('MessageSent', (response) => {
-            const user = props.users.find(u => u.id === response.message.sender_id);
-            if (user) {
-                user.lastMessage = response.message;
-                user.unreadCount += 1;
-            }
-        })
-});
-
-const formatTime = (time) => {
-    return new Date(time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-};
 </script>
