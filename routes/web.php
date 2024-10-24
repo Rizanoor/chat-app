@@ -6,6 +6,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FindpartnerController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\IndexController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StatusController;
 use Illuminate\Support\Facades\Route;
@@ -27,6 +28,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/chat/{user}', [ChatController::class, 'show'])->name('chat');
+
+    Route::get('/index', [IndexController::class, 'index'])->name('index');
 
     Route::get('/messages/{user}', [ChatController::class, 'index']);
     Route::post('/messages/{user}', [ChatController::class, 'sendMessage']);

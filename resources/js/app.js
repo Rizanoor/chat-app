@@ -8,6 +8,7 @@ import GroupsComponent from './components/GroupsComponent.vue';
 import GroupschatComponent from './components/GroupschatComponent.vue';
 import StatusComponent from './components/StatusComponent.vue';
 import FindPartnerComponent from './components/FindPartnerComponent.vue';
+import IndexComponent from './components/IndexComponent.vue';
 
 const app = createApp({});
 
@@ -18,4 +19,5 @@ app.component('groups-component', GroupsComponent);
 app.component('groupschat-component', GroupschatComponent);
 app.component('status-component', StatusComponent);
 app.component('find-partner-component', FindPartnerComponent);
+app.component('index-component', IndexComponent);
 app.mount('#app');
