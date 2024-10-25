@@ -3,7 +3,7 @@
         <div ref="contactContainer" class="overflow-y-auto flex-grow no-scrollbar">
             <div class="space-y-4">
                 <div class="flex">
-                    <a href="/dashboard"
+                    <a href="/index"
                         class="mr-3 text-gray-800 px-3 py-2 rounded-full border hover:bg-gray-300 transition duration-300">
                         <i class="fas fa-arrow-left"></i>
                     </a>

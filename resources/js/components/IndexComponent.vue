@@ -1,13 +1,23 @@
 <template>
     <div class="items-center rounded-b-md py-5 px-5">
         <!-- Header -->
-        <div class="flex justify-between items-center py-2 px-2">
-            <h1 class="text-3xl font-bold text-[#5E296B]">Friendzy</h1>
-            <button
-                class="text-[#5E296B] border border-[#E4ACD4] rounded-full px-3 py-2 hover:bg-[#E4ACD4] transition ease-in-out duration-300">
-                <i class="fas fa-bell fa-lg"></i>
-            </button>
+        <div class="flex justify-between items-center py-2 px-2 relative">
+        <h1 class="text-3xl font-bold text-[#5E296B]">Friendzy</h1>
+        <button
+            @click="toggleDropdown"
+            class="text-[#5E296B] border border-[#E4ACD4] rounded-full px-3 py-2 hover:bg-[#E4ACD4] transition ease-in-out duration-300 relative">
+            <i class="fas fa-bell fa-lg"></i>
+        </button>
+
+        <!-- Dropdown Menu -->
+        <div v-if="isDropdownOpen" class="absolute right-8 mt-10 w-40 bg-[#FDF7FD] rounded-lg shadow-lg z-10">
+            <ul class="text-gray-800">
+                <li @click="navigateToProfile" class="px-4 py-2 hover:bg-[#E4ACD4] cursor-pointer border-b">Profile</li>
+                <li @click="navigateToContact" class="px-4 py-2 hover:bg-[#E4ACD4] cursor-pointer border-b">Contact</li>
+                <li class="px-4 py-2 hover:bg-[#E4ACD4] bg-[#E4ACD4] cursor-pointer" @click="logout">Logout</li>
+            </ul>
         </div>
+    </div>
 
         <!-- Stories Section -->
         <div class="flex space-x-4 px-4 overflow-x-auto mt-4">
@@ -68,7 +78,8 @@
                         <img class="w-full h-64 object-cover" :src="item.image" alt="Nature scene">
                     </div>
                     <div class="p-6">
-                        <h2 class="text-xl font-bold text-gray-900">If you could live anywhere in the world, where would you pick?</h2>
+                        <h2 class="text-xl font-bold text-gray-900">If you could live anywhere in the world, where would
+                            you pick?</h2>
                         <!-- User info -->
                         <div class="flex items-center mt-4">
                             <img :src="item.avatar" alt="User Avatar" class="w-10 h-10 rounded-full mr-3">
@@ -94,6 +105,36 @@ const navigateToFind = () => {
 
 const navigateToMatches = () => {
     window.location.href = '/dashboard';
+}
+
+const navigateToContact = () => {
+    window.location.href = '/contact';
+}
+
+const navigateToProfile = () => {
+    window.location.href = '/profile';
+}
+
+const isDropdownOpen = ref(false);
+
+function toggleDropdown() {
+    isDropdownOpen.value = !isDropdownOpen.value;
+}
+
+document.addEventListener('click', (e) => {
+    const dropdownMenu = document.querySelector('.absolute');
+    if (dropdownMenu && !dropdownMenu.contains(e.target) && !e.target.closest('button')) {
+        isDropdownOpen.value = false;
+    }
+});
+
+async function logout() {
+    try {
+        await axios.post('/logout');
+        window.location.href = '/';
+    } catch (error) {
+        console.error('Logout failed:', error);
+    }
 }
 
 const items = ref([
