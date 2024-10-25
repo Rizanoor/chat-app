@@ -2,7 +2,7 @@
     <div class="flex flex-col h-[800px]">
         <div class="flex items-center">
             <a href="/dashboard"
-                class="mr-3 text-gray-800 px-3 py-2 rounded-full hover:bg-gray-300 transition duration-300">
+                class="mr-3 text-gray-800 px-3 py-2 rounded-full hover:bg-[#E4ACD4] transition duration-300">
                 <i class="fas fa-arrow-left"></i>
             </a>
             <img :src="'https://i.pravatar.cc/100'" alt="avatar"
@@ -39,7 +39,7 @@
                                 }}:</strong> {{ message.repliedTo.text }}</p>
                     </div>
 
-                    <div :class="message.sender_id === currentUser.id ? 'bg-green-500 text-white' : 'bg-gray-200 text-gray-800'"
+                    <div :class="message.sender_id === currentUser.id ? 'bg-[#E4ACD4] text-white' : 'bg-white text-gray-800'"
                         class="inline-block px-5 py-2 rounded-lg transition-all duration-300 hover:shadow-lg max-w-[350px]">
                         <p v-html="formatMessage(message.text)"></p>
                         <div class="flex items-center space-x-2 text-[10px] mt-1">
@@ -61,10 +61,10 @@
             <form @submit.prevent="sendMessage">
                 <div class="flex items-center">
                     <textarea v-model="newMessage" @keydown="sendTypingEvent"
-                        class="flex-1 border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+                        class="flex-1 border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#E4ACD4]"
                         placeholder="Ketik pesan Anda di sini..." rows="1" autofocus></textarea>
                     <button type="submit"
-                        class="ml-2 bg-green-500 text-white p-4 rounded-lg shadow hover:bg-green-600 transition duration-300 flex items-center justify-center">
+                        class="ml-2 bg-[#E4ACD4] text-white p-4 rounded-lg shadow hover:bg-[#FDF7FD] transition duration-300 flex items-center justify-center">
                         <i class="fa-solid fa-paper-plane"></i>
                     </button>
                 </div>
