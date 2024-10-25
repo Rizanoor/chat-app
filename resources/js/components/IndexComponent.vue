@@ -49,7 +49,7 @@
         <div class="flex justify-center mb-2">
             <div class="bg-[#f4e1f7] px-1 py-1 rounded-full">
                 <div class="flex space-x-0">
-                    <button
+                    <button @click="navigateToMatches"
                         class="bg-white text-[#5E296B] font-bold py-2 px-6 rounded-l-full shadow-md hover:bg-[#E4ACD4] transition duration-300">
                         Make Friends
                     </button>
@@ -61,45 +61,20 @@
             </div>
         </div>
 
-
         <div class="overflow-y-auto">
-            <div class="flex justify-center items-center px-4 py-6">
+            <div class="flex justify-center items-center px-4 py-6" v-for="(item, index) in items" :key="index">
                 <div class="w-full bg-white rounded-xl border overflow-hidden transform transition duration-500">
                     <div class="relative">
-                        <img class="w-full h-64 object-cover"
-                            src="https://images.unsplash.com/photo-1540206395-68808572332f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
-                            alt="Nature scene">
+                        <img class="w-full h-64 object-cover" :src="item.image" alt="Nature scene">
                     </div>
                     <div class="p-6">
-                        <h2 class="text-xl font-bold text-gray-900">If you could live anywhere in the world, where would
-                            you pick?</h2>
+                        <h2 class="text-xl font-bold text-gray-900">If you could live anywhere in the world, where would you pick?</h2>
                         <!-- User info -->
                         <div class="flex items-center mt-4">
-                            <img src="https://i.pravatar.cc/50" alt="User Avatar" class="w-10 h-10 rounded-full mr-3">
+                            <img :src="item.avatar" alt="User Avatar" class="w-10 h-10 rounded-full mr-3">
                             <div>
-                                <p class="font-bold text-gray-900">Miranda Kehlani</p>
-                                <p class="text-sm text-gray-500">STUTTGART</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="flex justify-center items-center px-4 py-6">
-                <div class="w-full bg-white rounded-xl border overflow-hidden transform transition duration-500">
-                    <div class="relative">
-                        <img class="w-full h-64 object-cover"
-                            src="https://images.unsplash.com/photo-1540206395-68808572332f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
-                            alt="Nature scene">
-                    </div>
-                    <div class="p-6">
-                        <h2 class="text-xl font-bold text-gray-900">If you could live anywhere in the world, where would
-                            you pick?</h2>
-                        <!-- User info -->
-                        <div class="flex items-center mt-4">
-                            <img src="https://i.pravatar.cc/50" alt="User Avatar" class="w-10 h-10 rounded-full mr-3">
-                            <div>
-                                <p class="font-bold text-gray-900">Miranda Kehlani</p>
-                                <p class="text-sm text-gray-500">STUTTGART</p>
+                                <p class="font-bold text-gray-900">{{ item.name }}</p>
+                                <p class="text-sm text-gray-500">{{ item.location }}</p>
                             </div>
                         </div>
                     </div>
@@ -111,7 +86,46 @@
 
 <script setup>
 
+import { ref } from 'vue';
+
 const navigateToFind = () => {
     window.location.href = '/find-partner';
 }
+
+const navigateToMatches = () => {
+    window.location.href = '/dashboard';
+}
+
+const items = ref([
+    {
+        image: "https://images.unsplash.com/photo-1540206395-68808572332f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+        avatar: "https://i.pravatar.cc/50?img=1",
+        name: "Miranda Kehlani",
+        location: "STUTTGART"
+    },
+    {
+        image: "https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+        avatar: "https://i.pravatar.cc/50?img=2",
+        name: "James Lin",
+        location: "BERLIN"
+    },
+    {
+        image: "https://images.unsplash.com/photo-1511765224389-37f0e77cf0eb?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+        avatar: "https://i.pravatar.cc/50?img=3",
+        name: "Clara Zang",
+        location: "MUNICH"
+    },
+    {
+        image: "https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+        avatar: "https://i.pravatar.cc/50?img=4",
+        name: "Oliver White",
+        location: "HAMBURG"
+    },
+    {
+        image: "https://images.unsplash.com/photo-1593642532973-d31b6557fa68?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+        avatar: "https://i.pravatar.cc/50?img=5",
+        name: "Sophie Kim",
+        location: "COLOGNE"
+    }
+]);
 </script>
